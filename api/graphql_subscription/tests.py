@@ -1,7 +1,7 @@
 from django.test import TestCase
 from graphene_django.utils.testing import GraphQLTestCase
 from django.urls import reverse
-from .models import AppConfig
+
 
 class URLTests(TestCase):
     def test_graphql_url(self):
