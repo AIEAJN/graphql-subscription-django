@@ -10,9 +10,9 @@ package-mode = false
 python = "^3.10"
 Django = "^5.1.1"
 graphene-django = "^3.2.2"
-django-cors-headers = "^3.13.0"
+django-cors-headers = "^4.4.0"
 django-filter = "^24.2"
-gunicorn = "^22.0.0"
+gunicorn = "^23.0.0"
 whitenoise = "^6.6.0"
 pytest-django = "^4.8.0"
 pytest = "^8.2.2"
@@ -26,9 +26,9 @@ uvicorn = "^0.30.6"
 
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^5.0.4"
-black = {version = "^22.10.0", allow-prereleases = true}
-mypy = "^0.991"
+flake8 = "^7.1.1"
+black = {version = "^24.8.0", allow-prereleases = true}
+mypy = "^1.11"
 ipykernel = "^6.21.2"
 
 [build-system]
