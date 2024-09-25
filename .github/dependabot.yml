@@ -1,0 +1,16 @@
+
+version: 2
+
+updates:
+
+  # Update Poetry dependencies
+  - package-ecosystem: "pip"  # yes, this is correct
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    pull-request-branch-name:
+      separator: "-"
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
