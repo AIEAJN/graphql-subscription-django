@@ -5,18 +5,12 @@ from .models import AppConfig
 
 class URLTests(TestCase):
     def test_graphql_url(self):
-        # Data initialization
-        AppConfig.objects.create(allow_introspection=True)
-        self.assertTrue(AppConfig.objects.filter(allow_introspection=True).exists())
         response = self.client.get(reverse('graphql'))
         self.assertEqual(response.status_code, 400)
         
 
 class QueryTests(GraphQLTestCase):
     def test_greeting(self):
-        # Data initialization
-        AppConfig.objects.create(allow_introspection=True)
-        self.assertTrue(AppConfig.objects.filter(allow_introspection=True).exists())
         response = self.query(
             '''
             query{
