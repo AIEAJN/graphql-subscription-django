@@ -15,7 +15,7 @@ run_migrations() {
 start_gunicorn() {
     echo "Starting Gunicorn..."
     cd /app/api
-    poetry run gunicorn api.wsgi:application --bind 0.0.0.0:7001 
+    poetry run gunicorn api.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:7001 
 }
 
 # Vérifier si le fichier pyproject.toml a changé

@@ -22,6 +22,7 @@ pytest-clarity = "^1.0.1"
 pytest-instafail = "^0.5.0"
 pytest-html = "^4.1.1"
 graphene-luna = "^1.0.0"
+uvicorn = "^0.30.6"
 
 
 [tool.poetry.group.dev.dependencies]
