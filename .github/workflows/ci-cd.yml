@@ -31,6 +31,7 @@ jobs:
     - name: Set up the database
       run: |
         cd api
+        poetry run python manage.py collectsatic
         poetry run python manage.py makemigrations
         poetry run python manage.py migrate
 
