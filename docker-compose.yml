@@ -1,0 +1,18 @@
+services:
+  graphql-subscription:
+    image: graphql-subscription
+    restart: unless-stopped
+    container_name: graphql-subscription
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - static:/var/www/graphql-subscription-django/static
+      - ./:/app
+      - migrations:/app/api/graphql_subscription/migrations  # Migrations volume for data migrations persitence
+    ports:
+      - 7001:7001
+
+volumes:
+  static:
+  migrations:
