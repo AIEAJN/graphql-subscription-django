@@ -10,7 +10,7 @@ COPY . .
 RUN pip install poetry \
     && poetry install --only main
 
-# Set permissions to scripts.sh
+# Set permissions to entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
 # Define the entrypoint
