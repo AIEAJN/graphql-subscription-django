@@ -6,13 +6,13 @@ import traceback
 class MangaType(DjangoObjectType):
     class Meta:
         model = Manga
-        interfaces = (graphene.relay.node,)
+        interfaces = (graphene.relay.Node,)
     
 
 class AddMangaFeature(graphene.Mutation):
-    success: bool = graphene.Boolean()
-    message: str = graphene.String()
-    manga: MangaType = graphene.Field(MangaType)
+    success = graphene.Boolean()
+    message = graphene.String()
+    manga = graphene.Field(MangaType)
     
     class Arguments:
         name = graphene.String(required=True)
@@ -21,7 +21,13 @@ class AddMangaFeature(graphene.Mutation):
     
     @classmethod
     def mutate(cls, root, info, **kwargs):
-        pass
+        kwargs = {key: value.strip().upper() for key, value in kwargs.items()}
+        try:
+            manga = Manga.objects.create(**kwargs)
+            return AddMangaFeature(success=True, manga=manga)
+        except Exception as error:
+            error = traceback.format_exc()
+            return AddMangaFeature(success=False, message=error)
     
     
     
@@ -36,6 +42,6 @@ class Query(graphene.ObjectType):
 
     
 class Mutation(graphene.ObjectType):
-    pass
+    add_manga = AddMangaFeature.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
