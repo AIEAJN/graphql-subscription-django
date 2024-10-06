@@ -1,10 +1,8 @@
 from django.test import TestCase
-import pytest
 from graphene_django.utils.testing import GraphQLTestCase
 from django.urls import reverse
 from .models import Manga
-from graphene.test import Client
-from .schema import schema
+
 
 
 class URLTests(TestCase):
@@ -95,24 +93,5 @@ class MutationTests(GraphQLTestCase):
         self.assertFalse(content['data']['addManga']['success'])
         self.assertIsNotNone(content['data']['addManga']['message'])
         self.assertIsNone(content['data']['addManga']['manga'])
-        
-        
-# class SubscriptionTest(GraphQLTestCase):
-#     @pytest.mark.asyncio
-#     async def test_new_manga_notification(self):
-#         # Manga.objects.create(name="NARUTO", synopsis="synopsis", author="MASASHI KISHIMOTO")
-#         subscription = self.query(
-#             '''
-#             subscription{
-#                  newManga{
-#                     manga{
-#                         name
-#                         author
-#                     }
-#                  }
-#             }
-#             '''
-#         )
-        
         
         
