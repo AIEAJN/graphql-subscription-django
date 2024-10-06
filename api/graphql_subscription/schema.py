@@ -1,6 +1,20 @@
 import graphene
+from graphene_django import DjangoObjectType
+from .models import Manga
 import traceback
 
+class MangaType(DjangoObjectType):
+    class Meta:
+        model = Manga
+        interfaces = (graphene.relay.node,)
+    
+
+
+
+class AddMangaFeature(graphene.Mutation):
+    success: bool = graphene.Boolean()
+    manga: MangaType = graphene.Field(MangaType)
+    
 class Query(graphene.ObjectType):
     greeting = graphene.String()
 
@@ -9,4 +23,9 @@ class Query(graphene.ObjectType):
         return "Hello World"
 
 
-schema = graphene.Schema(query=Query)
+
+    
+class Mutation(graphene.ObjectType):
+    pass
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
