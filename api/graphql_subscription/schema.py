@@ -1,11 +1,10 @@
 import graphene
-from graphene_django import DjangoObjectType, DjangoConnectionField
-from .models import Manga
 import traceback
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 import asyncio
-from asgiref.sync import sync_to_async, async_to_sync
+from graphene_django import DjangoObjectType, DjangoConnectionField
+from .models import Manga
 
 class MangaType(DjangoObjectType):
     class Meta:
