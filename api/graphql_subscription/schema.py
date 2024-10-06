@@ -9,11 +9,21 @@ class MangaType(DjangoObjectType):
         interfaces = (graphene.relay.node,)
     
 
-
-
 class AddMangaFeature(graphene.Mutation):
     success: bool = graphene.Boolean()
+    message: str = graphene.String()
     manga: MangaType = graphene.Field(MangaType)
+    
+    class Arguments:
+        name = graphene.String(required=True)
+        synopsis = graphene.String()
+        author = graphene.String(required=True)
+    
+    @classmethod
+    def mutate(cls, root, info, **kwargs):
+        pass
+    
+    
     
 class Query(graphene.ObjectType):
     greeting = graphene.String()
