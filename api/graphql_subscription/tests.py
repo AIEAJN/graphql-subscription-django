@@ -24,6 +24,28 @@ class QueryTests(GraphQLTestCase):
         self.assertResponseNoErrors(response)
         self.assertEqual(content['data']['greeting'], 'Hello World')
         
+    def test_manga(self):
+        Manga.objects.create(name="NARUTO", synopsis="synopsis", author="MASASHI KISHIMOTO")
+        response = self.query(
+            '''
+            query{
+                manga{
+                    edges{
+                        node{
+                            name
+                            author
+                        }
+                    }
+                }
+            }
+            ''',
+        )
+        self.assertEqual(response.status_code, 200)
+        content = response.json()
+        self.assertEqual(content['data']['manga']['edges'][0]['node']['name'], 'NARUTO')
+        self.assertEqual(content['data']['manga']['edges'][0]['node']['author'], 'MASASHI KISHIMOTO')
+
+        
         
 class MutationsTests(GraphQLTestCase):
     def test_add_manga(self):
@@ -51,7 +73,6 @@ class MutationsTests(GraphQLTestCase):
         
     def test_add_existing_manga(self):
         Manga.objects.create(name="NARUTO", synopsis="synopsis", author="MASASHI KISHIMOTO")
-        
         response = self.query(
             '''
             mutation{

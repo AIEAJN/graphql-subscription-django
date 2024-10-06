@@ -1,5 +1,5 @@
 import graphene
-from graphene_django import DjangoObjectType
+from graphene_django import DjangoObjectType, DjangoConnectionField
 from .models import Manga
 import traceback
 
@@ -7,8 +7,8 @@ class MangaType(DjangoObjectType):
     class Meta:
         model = Manga
         interfaces = (graphene.relay.Node,)
+  
     
-
 class AddMangaFeature(graphene.Mutation):
     success = graphene.Boolean()
     message = graphene.String()
@@ -30,17 +30,16 @@ class AddMangaFeature(graphene.Mutation):
             return AddMangaFeature(success=False, message=error)
     
     
-    
 class Query(graphene.ObjectType):
     greeting = graphene.String()
-
+    
     @staticmethod
     def resolve_greeting(root, info):
         return "Hello World"
 
-
-
+    manga = DjangoConnectionField(MangaType)
     
+
 class Mutation(graphene.ObjectType):
     add_manga = AddMangaFeature.Field()
 
