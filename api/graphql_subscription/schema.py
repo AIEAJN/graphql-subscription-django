@@ -49,6 +49,23 @@ mutation addManga($name: String = "Bleach", $synopsis: String = "Synopsis", $aut
             return AddMangaFeature(success=False, message=error)
 
 
+query_manga = """
+```
+query Mangas {
+  manga {
+    edges {
+      node {
+        id
+        name
+        synopsis
+        author
+        createdDate
+      }
+    }
+  }
+}
+```
+"""
 class Query(graphene.ObjectType):
     greeting = graphene.String()
 
@@ -56,7 +73,7 @@ class Query(graphene.ObjectType):
     def resolve_greeting(root, info):
         return "Hello World"
 
-    manga = DjangoConnectionField(MangaType)
+    manga = DjangoConnectionField(MangaType, description=query_manga)
 
 
 class Mutation(graphene.ObjectType):
