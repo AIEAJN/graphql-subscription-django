@@ -39,5 +39,22 @@ mutation addManga($name: String = "Bleach", $synopsis: String = "Synopsis", $aut
 }
 ```
 
+# Query to get all mangas
+```
+query Mangas {
+  manga {
+    edges {
+      node {
+        id
+        name
+        synopsis
+        author
+        createdDate
+      }
+    }
+  }
+}
+```
+
 # Good to know
 To test on GraphiQL, open two browser windows: one to run the subscription, which will listen for newly added manga, and the other to run the add manga mutation.
