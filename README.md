@@ -9,8 +9,6 @@ In GraphQL, a subscription allows clients to receive real-time updates on specif
 https://subscription.meetsum.net/graphql
 ```
 
-
-
 # Subscription example
 ```
 subscription subscribeToNewManga {
@@ -19,6 +17,7 @@ subscription subscribeToNewManga {
     name
     synopsis
     author
+    createdDate
   }
 }
 ```
@@ -32,6 +31,7 @@ mutation addManga($name: String = "Bleach", $synopsis: String = "Synopsis", $aut
     manga {
       id
       name
+      synopsis
       author
       createdDate
     }
