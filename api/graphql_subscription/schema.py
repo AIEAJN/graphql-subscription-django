@@ -29,7 +29,7 @@ class AddMangaFeature(graphene.Mutation):
             manga = Manga.objects.create(**kwargs)
             return AddMangaFeature(success=True, manga=manga)
         except Exception as error:
-            error = traceback.format_exc()
+            error = "This manga and its author already exist together!"
             return AddMangaFeature(success=False, message=error)
 
 
