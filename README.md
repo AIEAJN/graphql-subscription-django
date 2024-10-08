@@ -11,7 +11,7 @@ https://subscription.meetsum.net/graphql
 
 
 
-# Introspection query example
+# Subscription example
 ```
 subscription subscribeToNewManga {
   newManga {
