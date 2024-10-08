@@ -21,7 +21,23 @@ class AddMangaFeature(graphene.Mutation):
         name = graphene.String(required=True)
         synopsis = graphene.String()
         author = graphene.String(required=True)
-
+    class Meta:
+        description = """
+```
+mutation addManga($name: String = "Bleach", $synopsis: String = "Synopsis", $author: String = "Tite Kubo") {
+  addManga(name: $name, synopsis: $synopsis, author: $author) {
+    success
+    message
+    manga {
+      id
+      name
+      author
+      createdDate
+    }
+  }
+}
+```        
+"""
     @classmethod
     def mutate(cls, root, info, **kwargs):
         kwargs = {key: value.strip().upper() for key, value in kwargs.items()}
@@ -53,8 +69,21 @@ async def new_manga_signal(sender, instance, **kwargs):
     asyncio.run_coroutine_threadsafe(new_manga_queue.put(instance), asyncio.get_event_loop())
 
 
+new_manga_description = """
+```
+subscription subscribeToNewManga {
+  newManga {
+    id
+    name
+    synopsis
+    author
+    createdDate
+  }
+}
+```        
+"""
 class Subscription(graphene.ObjectType):
-    new_manga = graphene.Field(MangaType)
+    new_manga = graphene.Field(MangaType, description=new_manga_description)
     async def subscribe_new_manga(root, info, **kwargs):
         yield None
         while True: 
